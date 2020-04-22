@@ -1,0 +1,77 @@
+package ${PACKAGE_NAME}
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import androidx.databinding.ObservableArrayList
+import android.view.View
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.R
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.databinding.Fragment${LINK_NAME}Binding
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.${PRE_PATH}.domain.${LINK_NAME}ViewModel
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.${PRE_PATH}.domain.bean.${LINK_NAME}ItemBean
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.wight.RefreshListController
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.ui.base.BaseFragment
+import io.ditclear.bindingadapter.ItemClickPresenter
+import io.ditclear.bindingadapter.SingleTypeAdapter
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.ui.base.BaseVmFactoryBean
+
+class ${NAME} : BaseFragment<Fragment${LINK_NAME}Binding, ${LINK_NAME}ViewModel>(){
+
+    //region callback
+
+    override fun initInject() = getFragmentComponent().inject(this)
+
+    override fun getVmFactoryBean() = BaseVmFactoryBean(R.layout.activity_${LAYOUT_NAME}, ${LINK_NAME}ViewModel::class.java, ${LINK_NAME}ViewModelFactory(this, datamanagerHelper))
+
+    override fun initView() {
+        mBinding.vm = vm
+        val str1 = arguments?.getString(KEY_INDEX) ?: ""
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refreshList()
+    }
+
+    fun loadData(total: Int, List<${LINK_NAME}ItemBean>) = refreshListController.onNewData(total, datas)
+
+    fun refreshList() = refreshListController.refresh()
+
+    //endregion
+
+    //region declare variable
+
+    private val dataSource = ObservableArrayList<${LINK_NAME}ItemBean>()
+    private val mAdapter by lazy {
+        SingleTypeAdapter(this, R.layout.item_${LAYOUT_NAME}, dataSource)
+                .apply {
+                    itemPresenter = object : ItemClickPresenter<${LINK_NAME}ItemBean> {
+                        override fun onItemClick(v: View, item: ${LINK_NAME}ItemBean) {
+
+                        }
+                    }
+                }
+    }
+    private val refreshListController by lazy {
+        object : RefreshListController<${LINK_NAME}ItemBean>(mBinding.inSrl, dataSource) {
+            override fun injectAdapter() = mAdapter
+
+            override fun getList(page: Int) = vm.getX(page)
+        }
+    }
+
+    companion object {
+        private const val KEY_STR1 = "str1Key"
+
+        fun newInstance(str1: String = ""): Fragment {
+            val fragment = ${NAME}()
+            val bundle = Bundle()
+            bundle.apply {
+                putString(KEY_STR1, str1)
+            }
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
+
+    //endregion
+}

@@ -1,0 +1,346 @@
+apply plugin: 'com.android.application'
+//apply plugin: 'bugly'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'android-aspectjx'
+
+
+android {
+    //编译使用的sdk版本(必要的)
+    compileSdkVersion rootProject.compileSdkVersion
+    //构建工具版本(必要的,对应 AndroidSDK 中的 Android SDK Build-tools，其中包括了打包工具aapt、dx等等)
+//    buildToolsVersion rootProject.buildToolsVersion
+
+    useLibrary 'org.apache.http.legacy'
+
+    //dataBinding
+    dataBinding {
+        enabled true
+    }
+
+    //通过注解支持kotlin数据类序列化
+    androidExtensions {
+        experimental = true
+    }
+
+    defaultConfig {
+        applicationId "com.sctuopuyi.echo"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 2
+        versionName "1.0.1"
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        allSign {
+            keyAlias 'echo'
+            keyPassword '111111'
+            storeFile file('../keys/echo.jks')
+            storePassword '111111'
+        }
+    }
+    sourceSets {
+        main.jniLibs.srcDirs = ['libs']
+//        yqhBeta {
+//            res.srcDirs = ['src/youqianhua/res']
+//            assets.srcDirs = ['src/youqianhua/assets']
+//        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            //混淆文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.allSign
+
+            ndk {
+                abiFilters "armeabi"
+            }
+        }
+
+        debug {
+            // 在 flavor 里指定 signingConfig 可以指定 release 包的签名配置，但对 debug 包无效,解决办法：指定 debug 使用release的签名
+            signingConfig signingConfigs.allSign
+
+            ndk {
+                abiFilters "armeabi"
+            }
+        }
+    }
+    flavorDimensions "mode"
+    //多渠道配置
+    productFlavors {
+        //测试版
+        beta {
+            //flavor名称的维度
+            dimension "mode"
+            //应用程序ID
+            applicationId "com.sctuopuyi.echo"
+            //应用程序ID后缀
+            applicationIdSuffix ".beta"
+            //manifest占位符
+            manifestPlaceholders = [
+                    APP_ICON     : "@mipmap/ic_launcher",
+                    LBS_BAIDU_KEY: "11233232212",//百度地图相关
+                    APP_HOST     : "sctuopuyi.com",
+                    APP_SCHEMA   : "echo"
+            ]
+            //业务服务接口地址
+            buildConfigField 'String', 'API_URL_MAIN', '"http://apptest.xxx.com/api/"'
+            //h5基础地址
+            buildConfigField 'String', 'H5_URL_MAIN', '"http://chnltest.xxx.com/#/"'
+
+            buildConfigField 'String', 'API_URL_MESSAGE', '"http://apptest.xxx.com/api/"'
+            buildConfigField 'String', 'BUGLY_APP_ID', '"11"' //开发版
+            //百度Ocr
+            buildConfigField 'String', 'BAIDU_OCR_APP_KEY', '"112233"'
+            buildConfigField 'String', 'BAIDU_OCR_SECURITY_KEY', '"11233"'
+            //httpdns
+            buildConfigField 'String', 'ALIYUN_HTTPDNS_ACCOUNT_ID', '"1122"'
+            buildConfigField 'String', 'ALIYUN_HTTPDNS_SK', '"112233"'
+            //人脸活体检测
+            buildConfigField 'String', 'LIVENESS_SDK_KEY', '"112233"'
+            //linkface活体显示
+            buildConfigField 'String', 'LICENSE_INFO_URL', '"https://cloud-license.linkface.cn/json/123.json"'
+
+            //头部标识
+            buildConfigField 'String', 'PACKAGE_TAG', '"MSYQ"'
+
+
+            //版本号
+            versionCode 1
+            //版本名
+            versionName "1.0"
+            //公共的签名key
+            signingConfig signingConfigs.allSign
+        }
+
+
+        //马上有钱正式版
+        pd {
+            dimension "mode"
+            applicationId "com.sctuopuyi.echo"
+            applicationIdSuffix ".pd"
+            manifestPlaceholders = [
+                    APP_ICON     : "@mipmap/ic_launcher",
+                    LBS_BAIDU_KEY: "HGlxVdOxhk6A4oUNPb12jT6CCtTIcPMX",//百度地图相关
+                    APP_HOST     : "sctuopuyi.com",
+                    APP_SCHEMA   : "echo"
+            ]
+            //业务服务接口地址
+            buildConfigField 'String', 'API_URL_MAIN', '"https://app.xxx.com/"'
+            //h5基础地址
+            buildConfigField 'String', 'H5_URL_MAIN', '"https://h5.xxx.com/#/"'
+
+            buildConfigField 'String', 'API_URL_MESSAGE', '"http://api2.xxx.com/message/"'
+            buildConfigField 'String', 'BUGLY_APP_ID', '"11"' //开发版
+            //百度Ocr
+            buildConfigField 'String', 'BAIDU_OCR_APP_KEY', '"111"'
+            buildConfigField 'String', 'BAIDU_OCR_SECURITY_KEY', '"111"'
+            //httpdns
+            buildConfigField 'String', 'ALIYUN_HTTPDNS_ACCOUNT_ID', '"111"'
+            buildConfigField 'String', 'ALIYUN_HTTPDNS_SK', '"111"'
+            //人脸活体检测
+            buildConfigField 'String', 'LIVENESS_SDK_KEY', '"1111"'
+            //linkface活体显示
+            buildConfigField 'String', 'LICENSE_INFO_URL', '"https://cloud-license.linkface.cn/json/11122333.json"'
+            //头部标识
+            buildConfigField 'String', 'PACKAGE_TAG', '"MSYQ"'
+            //版本号
+            versionCode 1
+            //版本名
+            versionName "1.0"
+            //公共的签名key
+            signingConfig signingConfigs.allSign
+        }
+    }
+
+
+    // 打包可选参数
+    packagingOptions {
+        //exclude表示打包时排除出apk
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/ASM-LICENSE.txt'
+        exclude 'META-INF/ASM-LICENSE'
+        exclude 'asm-license.txt'
+        exclude 'LICENSE'
+        exclude 'NOTICE'
+    }
+
+    //Lint工具(代码静态检测)可选参数
+    lintOptions {
+        //是否应在发布构建过程中检查到致命错误时终止发布。 默认值是true,表示退出
+        checkReleaseBuilds false
+        //如果发现错误，lint工具是否应该退出这个程序。默认值是true,表示退出
+        abortOnError false
+    }
+
+    //编译可选项参数
+    compileOptions {
+        //指定编译编译.java文件的jdk版本
+        targetCompatibility JavaVersion.VERSION_1_8
+        //确保class文件与targetCompatibility指定版本，或者更新的java虚拟机兼容
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
+    //aapt 参数配置
+    aaptOptions {
+        cruncherEnabled false
+    }
+
+    //dex 参数配置
+    dexOptions {
+        preDexLibraries true
+        //使用jumbo(庞大的)模式
+        jumboMode = false
+        //可以使用Dex的最大并发进程数。默认为4。
+        maxProcessCount 4
+        //当dx运行时使用的线程的数量。默认4个。
+        threadCount 6
+        //当调用dx时指定-Xmx值
+        javaMaxHeapSize "6g"
+//        incremental true
+    }
+
+    //打包文件名
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            def fileName = "${variant.applicationId}_V${variant.versionName}_build${variant.versionCode}_${variant.buildType.name}_${variant.name}.apk"
+            outputFileName = fileName
+        }
+    }
+}
+
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.2.0-alpha01'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.multidex:multidex-instrumentation:2.0.0'
+    implementation 'com.google.android.material:material:1.2.0-alpha03'
+    implementation 'com.tencent.bugly:crashreport:3.1.0'
+    implementation 'com.tencent.bugly:nativecrashreport:3.7.1'
+    implementation 'com.orhanobut:logger:2.1.1'
+    implementation 'com.google.dagger:dagger:2.13'
+    //BaseActivity中依赖的优化了Fragment管理的库
+    implementation "me.yokeyword:fragmentationx:$fragmationVersion"
+    //BaseView中各依赖的生命周期管理库
+    implementation "android.arch.lifecycle:extensions:$archLifecycleVersion"
+    //BaseView中rx声明周期管理库
+    implementation "com.trello.rxlifecycle2:rxlifecycle-components:$rxlifecycle2Version"
+    //rx
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroidVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rxjavaVersion"
+    implementation "com.github.tbruyelle:rxpermissions:$rxpermissionsVersion"
+    //dagger
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger-android:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    //dataBinding
+    kapt "com.android.databinding:compiler:$dataBindingCompilerVersion"
+    //dataBinding List Adapter
+    implementation "com.ditclear:bindinglistadapter:$bindinglistadapterVersion"
+    //kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutinesAndroidVersion"
+    //kotlin帮助工具anko库中的sqlite库
+//    implementation "org.jetbrains.anko:anko-sqlite:$ankoVersion"
+    //retrofit2
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitAdapterVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    //okHttp3
+    implementation "com.squareup.okhttp3:okhttp:$okhttp3Version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3Version"
+    //logger日志打印工具
+    implementation "com.orhanobut:logger:$loggerVersion"
+    //glide图片加载控件
+//    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation "jp.wasabeef:glide-transformations:$glideTransformationVersion"
+    //阿里文件上传oss
+//    implementation "com.aliyun.dpa:oss-android-sdk:$ossVersion"
+    //aspectj切面编程
+    implementation "org.aspectj:aspectjrt:$aspectjVersion"
+    //下拉刷新控件
+    implementation "com.scwang.smartrefresh:SmartRefreshLayout:$smartrefreshVersion"
+    implementation "com.scwang.smartrefresh:SmartRefreshHeader:$smartrefreshVersion"
+    //下拉刷新控件---给webView下拉刷新用
+    implementation "com.mylhyl:commonrefreshlayout:$commonrefreshlayoutVersion"
+    //banner控件
+    implementation "com.youth.banner:banner:$bannerVersion"
+    //可滑动的导航栏控件
+    implementation "com.flyco.tablayout:FlycoTabLayout_Lib:$flycoTabLayout_LibVersion"
+    //阴影控件
+    implementation "com.github.dmytrodanylyk.shadow-layout:library:$shadowLayoutLibraryVersion"
+    //加载动画控件
+    implementation "com.wang.avi:library:$aviLibraryVersion"
+    implementation 'com.lzy.widget:imagepicker:0.6.1'  //指定版本
+    implementation 'com.blankj:utilcodex:1.25.0'
+    //地址选择
+//    implementation 'com.contrarywind:Android-PickerView:4.1.8'
+    implementation 'cn.qqtheme.framework:WheelPicker:1.5.5'
+
+    //状态透明度处理
+    implementation 'com.jaeger.statusbarutil:library:1.5.1'
+
+    api('com.aliyun.ams:alicloud-android-httpdns:1.+') {
+        transitive true
+    }
+    kapt 'com.google.dagger:dagger-compiler:2.13'
+
+//    implementation files('libs/ocr-sdk.jar')
+//    implementation files('libs/open_sdk_r5886_lite.jar')
+//    implementation files('libs/BaiduLBS_Android.jar')
+//    implementation files('libs/XYAssessment-Android-2.2.0.jar')
+//    implementation files('libs/XYDfp-Android-3.1.2.jar')
+
+//    implementation project(':ocr_ui')
+//    implementation project(':updatelibrary')
+//    compile project(':LFLivenessLibrary')
+
+    //人脸识别
+
+//    compile(name: 'cdplibrary-release', ext: 'aar')
+//    compile(name: 'common-motion-release', ext: 'aar')
+//    compile(name: 'liveness-interactive-online-release', ext: 'aar')
+
+//    implementation project(':sTLivenessLibrary')
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
+
+//依赖冲突解决，强制jar包版本
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'androidx') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion "$supportLibraryVersion"
+            }
+        }
+    }
+}

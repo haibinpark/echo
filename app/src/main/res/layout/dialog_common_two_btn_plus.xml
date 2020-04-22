@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sctuopuyi.echo.utils.dialog.viewmodel.DialogViewModel" />
+
+        <variable
+            name="view"
+            type="android.view.View" />
+
+    </data>
+
+
+    <!--android:paddingLeft="5dp"-->
+    <!--android:paddingTop="10dp"-->
+    <!--android:paddingRight="5dp"-->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_solid_fff_r3"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text="@{vm.title}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:text="标题" />
+
+            <View
+                style="@style/divide_line_height1_width_match"
+                android:layout_height="0.5dp" />
+
+            <!--最新产品列表-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_newest_car_source"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="0.5dp"
+                android:adapter="@{vm.adapter}"
+                android:divider="@null"
+                android:nestedScrollingEnabled="false"
+                android:scrollbars="none"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_dialog"
+                tools:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_content"
+                style="@style/wrap_33_14"
+                android:padding="20dp"
+                android:singleLine="false"
+                android:text="@{vm.content}"
+                tools:text="你可知marko，不是我真姓，我离开你太久了母亲" />
+
+            <View style="@style/divide_line_height1_width_match" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_bottom_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_press_white_gray_bl_r3"
+                    android:gravity="center"
+                    android:onClick="@{(v) -> vm.onSingleClick(v)}"
+                    android:text="@{vm.leftButtonName}"
+                    android:textColor="@color/gray_a3"
+                    android:textSize="14sp"
+                    tools:text="左按钮" />
+
+                <View
+                    style="@style/divide_grayf5_width1_height12"
+                    android:layout_height="14dp" />
+
+                <TextView
+                    android:id="@+id/tv_bottom_btn2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_press_white_gray_br_r3"
+                    android:gravity="center"
+                    android:onClick="@{(v) -> vm.onSingleClick(v)}"
+                    android:text="@{vm.rightButtonName}"
+                    android:textColor="@color/orange_main"
+                    android:textSize="14sp"
+                    tools:text="右按钮" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </FrameLayout>
+</layout>

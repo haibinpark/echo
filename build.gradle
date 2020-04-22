@@ -1,0 +1,90 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext{
+        compileSdkVersion = 28
+        buildToolsVersion = '28.0.3'
+        targetSdkVersion = ''
+        minSdkVersion = 19
+        targetSdkVersion = 28
+        kotlin_version = '1.3.31'
+        gradleVersion = '3.4.1'
+        dataBindingCompilerVersion = gradleVersion
+        constraintLayoutVersion = '1.1.2'
+        junitVersion = '4.12'
+        archLifecycleVersion = '1.1.1'
+        testRunnerVersion = '1.0.2'
+        testEspressoVersion = '3.0.2'
+        supportLibraryVersion = '27.1.1'
+        kotlinCoroutinesAndroidVersion = '0.24.0'
+        retrofitVersion = '2.3.0'
+        retrofitAdapterVersion = '2.2.0'
+        okhttp3Version = '3.9.1'
+        rxjavaVersion = '2.2.0'
+        rxpermissionsVersion = '0.10.2'
+        rxandroidVersion = '2.0.2'
+        daggerVersion = '2.13'
+        loggerVersion = '2.1.1'
+        fragmationVersion = '1.0.1'
+        ankoVersion = '0.10.5'
+        glideVersion = '3.8.0'
+        ossVersion = '2.4.5'
+        aspectjVersion = '1.8.13'
+        aspectjPluginVersion = '2.0.2'
+        glideTransformationVersion = '2.0.1'
+        pageindicatorviewVersion = '1.0.0'
+        aviLibraryVersion = '2.1.3'
+        shadowLayoutLibraryVersion = '1.0.3'
+        bindinglistadapterVersion = '1.0.1'
+        corektxVersion = '1.0.0-rc02'
+        bannerVersion = '1.4.10'
+        flycoTabLayout_LibVersion = '2.1.2@aar'
+        smartrefreshVersion = '1.0.5.1'
+        commonrefreshlayoutVersion = '2.4'
+        bannerVersion = '1.4.10'
+        rxlifecycle2Version = '2.2.1'
+    }
+    repositories {
+        mavenLocal()
+        maven { url "https://maven.aliyun.com/repository/apache-snapshots" }
+        maven { url "https://maven.aliyun.com/repository/google" }
+        maven { url "https://maven.aliyun.com/repository/central" }
+        maven { url "https://maven.aliyun.com/repository/gradle-plugin" }
+        maven { url "https://maven.aliyun.com/repository/jcenter" }
+        maven { url "https://maven.aliyun.com/repository/spring" }
+        maven { url "https://jitpack.io" }
+        //蒲公英
+        maven { url "https://raw.githubusercontent.com/Pgyer/mvn_repo_pgyer/master" }
+        google()
+
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.4.1'
+        classpath "com.hujiang.aspectjx:gradle-android-plugin-aspectjx:$aspectjPluginVersion"
+        classpath "org.aspectj:aspectjtools:$aspectjVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
+        maven { url "https://maven.aliyun.com/repository/apache-snapshots" }
+        maven { url "https://maven.aliyun.com/repository/google" }
+        maven { url "https://maven.aliyun.com/repository/central" }
+        maven { url "https://maven.aliyun.com/repository/gradle-plugin" }
+        maven { url "https://maven.aliyun.com/repository/jcenter" }
+        maven { url "https://maven.aliyun.com/repository/spring" }
+        maven { url "http://maven.aliyun.com/nexus/content/repositories/releases/" }
+        maven { url "https://jitpack.io" }
+        //蒲公英
+//        maven { url "https://raw.githubusercontent.com/Pgyer/mvn_repo_pgyer/master" }
+        google()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

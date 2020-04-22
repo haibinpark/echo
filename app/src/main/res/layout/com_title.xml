@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sctuopuyi.echo.ui.base.domain.ObserableViewModel" />
+
+        <variable
+            name="view"
+            type="android.view.View" />
+
+    </data>
+
+    <!--    android:background="@mipmap/com_title_background"-->
+    <!--    tools:background="@mipmap/com_title_background"-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="25dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="3dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:onClick="@{(v) -> vm.onSingleClick(v)}"
+                android:paddingLeft="18dp"
+                android:paddingTop="8dp"
+                android:paddingRight="12dp"
+                android:paddingBottom="8dp"
+                android:src="@mipmap/icon_fh"
+                android:visibility="@{vm.leftBtnStatus?view.VISIBLE:view.INVISIBLE}" />
+
+
+            <TextView
+                style="@style/wrap_33_13_single"
+                android:layout_centerInParent="true"
+                android:text="@{vm.titleName}"
+                android:textColor="@color/font_color_page_title"
+                android:textSize="48sp"
+                android:textStyle="bold"
+                tools:text="袋鼠运动" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_btn_tools"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:onClick="@{(v) -> vm.onSingleClick(v)}"
+                    android:padding="5dp"
+                    android:visibility="@{vm.rightImageStatus?view.VISIBLE:view.GONE}"
+                    app:imageUrl="@{vm.rightImageUrl}"
+                    app:isLocal="@{true}"
+                    tools:background="@drawable/icon_shezhi" />
+
+
+                <TextView
+                    android:id="@+id/tv_title_right"
+                    style="@style/wrap_33_13_single"
+                    android:layout_centerVertical="true"
+                    android:onClick="@{(v) -> vm.onSingleClick(v)}"
+                    android:text="@{vm.titleRightName}"
+                    android:textColor="@color/font_color_page_right_title"
+                    android:visibility="@{vm.rightBtnStatus?view.VISIBLE:view.GONE}"
+                    tools:text="贷超" />
+            </LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>
+

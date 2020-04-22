@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.sctuopuyi.echo.utils.dialog.viewmodel.DialogRecommendViewModel" />
+
+        <variable
+            name="view"
+            type="android.view.View" />
+
+    </data>
+
+
+    <!--android:paddingLeft="5dp"-->
+    <!--android:paddingTop="10dp"-->
+    <!--android:paddingRight="5dp"-->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_solid_fff_r3"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:padding="20dp"
+                android:text="恭喜，您已经通过以下产品认证！建议您同时提交3-5个申请，提高贷款成功率和额度！"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:text="恭喜，您已经通过以下产品认证！建议您同时提交3-5个申请，提高贷款成功率和额度！" />
+
+            <View
+                style="@style/divide_line_height1_width_match"
+                android:layout_height="0.5dp" />
+
+            <!--最新产品列表-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_newest_car_source"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="0.5dp"
+                android:adapter="@{vm.adapter}"
+                android:divider="@null"
+                android:nestedScrollingEnabled="false"
+                android:scrollbars="none"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_dialog_recommend"
+                tools:visibility="visible" />
+
+            <View style="@style/divide_line_height1_width_match" />
+
+            <RelativeLayout
+                android:id="@+id/rl_btn_approve"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical"
+                android:onClick="@{(v)->vm.onSingleClick(v)}"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="gone"
+                    app:imageUrl="@{vm.btnUrl}"
+                    app:isLocal="@{vm.hasBtnLocal}"
+                    tools:background="@drawable/icon_yjsq"
+                    tools:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_btn_approve"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/selector_press_main_gray_buttom"
+                    android:padding="8dp"
+                    android:text="一键完成申请"
+                    android:textColor="#ffffffff"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:text="一键完成申请" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </FrameLayout>
+</layout>

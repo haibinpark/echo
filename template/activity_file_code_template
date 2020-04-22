@@ -1,0 +1,48 @@
+package ${PACKAGE_NAME}
+
+import android.content.Context
+import android.content.Intent
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.R
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.databinding.Activity${LINK_NAME}Binding
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.ui.${PRE_PATH}.domain.${LINK_NAME}ViewModel
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.ui.base.BaseActivity
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.ui.base.BaseVmFactoryBean
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.ui.${PRE_PATH}.domain.${LINK_NAME}ViewModelFactory
+
+class ${NAME} : BaseActivity<Activity${LINK_NAME}Binding, ${LINK_NAME}ViewModel>() {
+
+    //region callback
+
+    override fun initInject() = getActivityComponent().inject(this)
+
+    override fun getVmFactoryBean() = BaseVmFactoryBean(R.layout.activity_${LAYOUT_NAME}, ${LINK_NAME}ViewModel::class.java, ${LINK_NAME}ViewModelFactory(this, datamanagerHelper))
+
+    override fun initView() {
+        mBinding.vm = vm
+        vm.titleName.set("${TitleName}")
+        val str1 = intent.getStringExtra(KEY_STR1)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        vm.getHttpDatas()
+    }
+
+    //endregion
+
+    //region declare variable
+
+    companion object {
+        private const val KEY_STR1 = "str1Key"
+
+        fun start(context: Context, str1: String = "") {
+            val starter = Intent(context, ${LINK_NAME}Activity::class.java)
+            starter.apply {
+                putExtra(KEY_STR1, str1)
+            }
+            context.startActivity(starter)
+        }
+    }
+
+    //endregion
+}

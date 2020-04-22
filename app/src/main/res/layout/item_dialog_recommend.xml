@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.sctuopuyi.echo.utils.dialog.viewmodel.bean.DialogRecommendItemBean" />
+
+        <variable
+            name="presenter"
+            type="io.ditclear.bindingadapter.ItemClickPresenter" />
+
+        <variable
+            name="view"
+            type="android.view.View" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:id="@+id/ll_item_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:onClick="@{(v)->presenter.onItemClick(v,item)}"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/icon_selecte_bg"
+                        tools:background="@drawable/icon_selecte_bg" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/icon_selected"
+                        android:visibility="@{item.selectStatus?view.VISIBLE:view.GONE}"
+                        tools:background="@drawable/icon_selected" />
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="@dimen/margin_left_some"
+                    app:imageUrl="@{item.icon}"
+                    tools:background="@drawable/icon_product" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="@{item.productName}"
+                    android:textSize="12sp"
+                    tools:text="产品名称" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="额度: "
+                    android:textSize="12sp"
+                    tools:text="额度: " />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="@{item.amountDesc}"
+                    android:textColor="#ffe34819"
+                    android:textSize="12sp"
+                    tools:text="2000-20000元" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View style="@style/div_05" />
+    </LinearLayout>
+
+</layout>

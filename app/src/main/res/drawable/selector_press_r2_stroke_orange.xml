@@ -1,0 +1,4 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/shape_solid_trans_stro_orange_r2_press" android:state_pressed="true" />
+    <item android:drawable="@drawable/shape_solid_trans_stro_orange_r2" android:state_pressed="false" />
+</selector>

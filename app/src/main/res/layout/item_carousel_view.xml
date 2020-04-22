@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_carouse_text0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="left"
+        android:text="恭喜"
+        android:textColor="#333333"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_carouse_text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="left"
+        android:textColor="#FB7439"
+        android:textSize="12sp"
+        tools:text="王先生" />
+
+    <TextView
+        android:id="@+id/tv_carouse_text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="left"
+        android:text=""
+        tools:text="在马上有钱成功下款"
+        android:textColor="#333333"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_carouse_text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="left"
+        android:textColor="#E34819"
+        android:textSize="12sp"
+        tools:text="3000" />
+
+    <TextView
+        android:id="@+id/tv_carouse_text4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="left"
+        android:text="元!"
+        android:textColor="#333333"
+        android:textSize="12sp" />
+</LinearLayout>

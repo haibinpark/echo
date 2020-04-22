@@ -1,0 +1,71 @@
+package ${PACKAGE_NAME}
+
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.commonservice.data.DatamanagerHelper
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.${MODULE_NAME}.R
+import android.databinding.ObservableField
+import android.view.View
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.commonservice.data.http.request.SubjectsReq
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.commonservice.util.CommonSubscriber
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.commonservice.util.RxUtil
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.${MODULE_NAME}.page.${PRE_PATH}.ui.${LINK_NAME}Activity
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.${MODULE_NAME}.page.base.ObserableViewModel
+
+class ${LINK_NAME}ViewModel(private val datamanagerHelper: DatamanagerHelper, private var mView: ${LINK_NAME}Activity) :
+    ObserableViewModel() {
+
+    //region onClick method
+
+    override fun onSingleClick(v: View) {
+        when (v.id) {
+            R.id.iv_back -> mView.onBackPressedSupport()
+        }
+    }
+
+    //endregion
+
+    //region other method
+
+    fun getHttpDatas() {
+
+    }
+
+    fun getListDatas(page: Int) {
+
+    }
+
+    fun initData(str1: String?) {
+    }
+
+    //endregion
+
+    //region all variable
+
+    //region dataBind variable
+
+    val xx = ObservableField<String>()
+
+    //endregion
+
+    //region declare variable
+
+
+    //endregion
+
+    //endregion
+}
+
+
+class ${LINK_NAME}ViewModelFactory(
+    private val mView: ${LINK_NAME}Activity,
+    private val datamanagerHelper: DatamanagerHelper
+) : ViewModelProvider.NewInstanceFactory() {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(${LINK_NAME}ViewModel::class.java)) {
+            return ${LINK_NAME}ViewModel(datamanagerHelper, mView) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}

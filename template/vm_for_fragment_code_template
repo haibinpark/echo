@@ -1,0 +1,56 @@
+package ${PACKAGE_NAME}
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.data.DatamanagerHelper
+import androidx.databinding.ObservableField
+import android.view.View
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.ui.${PRE_PATH}.${LINK_NAME}Fragment
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.ui.base.domain.ObserableViewModel
+
+class ${NAME}(private val datamanagerHelper: DatamanagerHelper, private var mView: ${LINK_NAME}Fragment) : ObserableViewModel() {
+
+    //region onClick method
+
+    override fun onSingleClick(v: View) {
+        when (v.id) {
+        }
+    }
+
+    //endregion
+
+    //region other method
+
+    fun getHttpDatas() {
+
+    }
+
+    //endregion
+
+    //region all variable
+
+    //region dataBind variable
+
+    val xx = ObservableField<String>()
+
+    //endregion
+
+    //region declare variable
+
+
+
+    //endregion
+
+    //endregion
+}
+
+class ${NAME}Factory(private val mView: ${LINK_NAME}Fragment, private val datamanagerHelper: DatamanagerHelper)
+    : ViewModelProvider.NewInstanceFactory() {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(${NAME}::class.java)) {
+            return ${NAME}(datamanagerHelper, mView) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}

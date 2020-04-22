@@ -1,0 +1,57 @@
+package ${PACKAGE_NAME}
+
+import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.databinding.ObservableArrayList
+import android.view.View
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.${MODULE_NAME}.R
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.${MODULE_NAME}.databinding.${PRE_MODULE}Fragment${LINK_NAME}Binding
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.${MODULE_NAME}.page.${PRE_PATH}.domain.${LINK_NAME}ViewModel
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.${MODULE_NAME}.page.${PRE_PATH}.domain.${LINK_NAME}ViewModelFactory
+import io.ditclear.bindingadapter.ItemClickPresenter
+import io.ditclear.bindingadapter.SingleTypeAdapter
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.commonservice.page.base.BaseVmFactoryBean
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.${MODULE_NAME}.page.base.MainBaseFragment
+import ${COMPANY_NAME}.${THIS_PROJECT_NAME}.${MODULE_NAME}.widget.RefreshListController
+
+class ${LINK_NAME}Fragment : MainBaseFragment<MFragment${LINK_NAME}Binding, ${LINK_NAME}ViewModel>() {
+
+    //region callback
+
+    override fun initInject() = getFragmentComponent().inject(this)
+
+    override fun getVmFactoryBean() = BaseVmFactoryBean(
+            R.layout.m_fragment_${LAYOUT_NAME},
+            ${LINK_NAME}ViewModel::class.java,
+            ${LINK_NAME}ViewModelFactory(this, datamanagerHelper)
+    )
+
+    override fun initView() {
+        mBinding.vm = vm
+        val str1 = arguments?.getString(KEY_STR1) ?: ""
+        vm.initData(1)
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    //endregion
+
+    //region declare variable
+    companion object {
+        private const val KEY_STR1 = "str1Key"
+
+        fun newInstance(str1: String = ""): ${LINK_NAME}Fragment {
+            val fragment = ${LINK_NAME}Fragment()
+            val bundle = Bundle()
+            bundle.apply {
+                putString(KEY_STR1, str1)
+            }
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
+
+    //endregion
+}

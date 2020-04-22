@@ -1,0 +1,4 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/shape_solid_r6_gradient_press" android:state_pressed="true" />
+    <item android:drawable="@drawable/shape_solid_r6_gradient_normal" android:state_pressed="false" />
+</selector>

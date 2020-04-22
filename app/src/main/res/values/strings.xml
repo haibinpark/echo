@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Echo</string>
+    <string name="mfxs">Echo</string>
+    <!--    <string name="tip_agreement_empty">暂无借款协议~~</string>-->
+</resources>
