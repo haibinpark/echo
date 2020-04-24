@@ -1,8 +1,7 @@
-package com.sctuopuyi.echo.utils
+package com.sctuopuyi.echo.util
 
 import android.app.Activity
 import android.content.Context
-import android.telecom.TelecomManager
 import android.telephony.TelephonyManager
 
 object SimUtil {
@@ -42,7 +41,6 @@ object SimUtil {
             else -> SimOperator.UNKNOWN
         }
     }
-
 
 }
 

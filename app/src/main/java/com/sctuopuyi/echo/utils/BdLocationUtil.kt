@@ -1,46 +1,47 @@
-package com.sctuopuyi.echo.utils
-
+//package com.sctuopuyi.echo.util
+//
 //import com.baidu.location.BDLocation
 //import com.baidu.location.BDAbstractLocationListener
 //import com.baidu.location.LocationClientOption
 //import com.baidu.location.LocationClient
-
-
-class BdLocationUtil {
-
-    /**
-     * 单例
-     *
-     * @return
-     */
-
-    companion object {
-        @JvmStatic
-        fun getInstance(): BdLocationUtil {
-            return LocationHolder.INSTANCE
-        }
-    }
-
-    private object LocationHolder {
-        val INSTANCE = BdLocationUtil()
-    }
-
-    private fun BdLocationUtil() {}
-
-    /**
-     * 定位回调的接口
-     */
-    interface MyLocationListener {
+//import com.sctuopuyi.echo.app.BaseApp
+//
+//
+//class BdLocationUtil {
+//
+//    /**
+//     * 单例
+//     *
+//     * @return
+//     */
+//
+//    companion object {
+//        @JvmStatic
+//        fun getInstance(): BdLocationUtil {
+//            return LocationHolder.INSTANCE
+//        }
+//    }
+//
+//    private object LocationHolder {
+//        val INSTANCE = BdLocationUtil()
+//    }
+//
+//    private fun BdLocationUtil() {}
+//
+//    /**
+//     * 定位回调的接口
+//     */
+//    interface MyLocationListener {
 //        fun myLocation(location: BDLocation)
-    }
-
-    /**
-     * 获取当前位置
-     */
-    fun requestLocation(listener: MyLocationListener) {
-        //声明LocationClient类
-//        val locationClient = LocationClient(App.getInstance())
-        // 设置定位条件
+//    }
+//
+//    /**
+//     * 获取当前位置
+//     */
+//    fun requestLocation(listener: MyLocationListener) {
+//        //声明LocationClient类
+//        val locationClient = LocationClient(BaseApp.getInstance())
+//        // 设置定位条件
 //        val option = LocationClientOption()
 //        option.isOpenGps = true                // 是否打开GPS
 //        option.setCoorType("bd09ll")           // 设置返回值的坐标类型
@@ -67,7 +68,7 @@ class BdLocationUtil {
 //         * 定时定位时，调用一次requestLocation，会定时监听到定位结果。
 //         */
 //        locationClient.requestLocation()
-    }
-
-
-}
+//    }
+//
+//
+//}

@@ -10,7 +10,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
-import com.sctuopuyi.echo.face.camera.CameraInterface;
+import com.sctuopuyi.echo.app.Constants;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -153,6 +153,7 @@ public class ImageUtil {
      *
      * @param bitmap
      * @param outPath
+     * @throws FileNotFoundException
      */
     public static void storeImage(Bitmap bitmap, String outPath) throws FileNotFoundException {
         FileOutputStream os = new FileOutputStream(outPath);
@@ -248,6 +249,7 @@ public class ImageUtil {
      * @param image
      * @param outPath
      * @param maxSize target will be compressed to be smaller than this size.(kb)
+     * @throws IOException
      */
     public static void compressAndGenImage(Bitmap image, String outPath, int maxSize) throws IOException {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -279,6 +281,7 @@ public class ImageUtil {
      * @param outPath
      * @param maxSize     target will be compressed to be smaller than this size.(kb)
      * @param needsDelete Whether delete original file after compress
+     * @throws IOException
      */
     public static void compressAndGenImage(String imgPath, String outPath, int maxSize, boolean needsDelete) throws IOException {
         compressAndGenImage(getBitmap(imgPath), outPath, maxSize);
@@ -321,21 +324,21 @@ public class ImageUtil {
              * 1.如果是后置相机拍照,需要旋转正90度;
              * 2.如果是前置相机拍照,需要旋转负90度;
              */
-            if (CameraInterface.getInstance().getCameraId() == 0) {
-                //getRotateBitmap注意,在这里就要进行压缩,不然会内存溢出
-                Bitmap bm = MImageUtil.ratio(b, 960f, 480f);
-                compressImage(bm, 120);
-                //第二次压缩
-                rotaBitmap = ImageUtil.getRotateBitmap(bm, 90.0f);
-                imagePath = ImageUtil.saveBitmap(rotaBitmap, context, fileName);
-            } else {
-                //getRotateBitmap注意,在这里就要进行压缩,不然会内存溢出
-                Bitmap bm = MImageUtil.ratio(b, 960f, 480f);
-                compressImage(bm, 120);
-                //第二次压缩
-                rotaBitmap = ImageUtil.getRotateBitmap(bm, 0f);
-                imagePath = ImageUtil.saveBitmap(rotaBitmap, context, fileName);
-            }
+//            if (CameraInterface.getInstance().getCameraId() == 0) {
+//                //getRotateBitmap注意,在这里就要进行压缩,不然会内存溢出
+//                Bitmap bm = MImageUtil.ratio(b, 960f, 480f);
+//                compressImage(bm, 120);
+//                //第二次压缩
+//                rotaBitmap = ImageUtil.getRotateBitmap(bm, 90.0f);
+//                imagePath = ImageUtil.saveBitmap(rotaBitmap, context, fileName);
+//            } else {
+//                //getRotateBitmap注意,在这里就要进行压缩,不然会内存溢出
+//                Bitmap bm = MImageUtil.ratio(b, 960f, 480f);
+//                compressImage(bm, 120);
+//                //第二次压缩
+//                rotaBitmap = ImageUtil.getRotateBitmap(bm, 0f);
+//                imagePath = ImageUtil.saveBitmap(rotaBitmap, context, fileName);
+//            }
         }
         return imagePath;
     }
@@ -400,6 +403,7 @@ public class ImageUtil {
      * @param outPath
      * @param pixelW  target pixel of width
      * @param pixelH  target pixel of height
+     * @throws FileNotFoundException
      */
     public static void ratioAndGenThumb(Bitmap image, String outPath, float pixelW, float pixelH) throws FileNotFoundException {
         Bitmap bitmap = ratio(image, pixelW, pixelH);
@@ -414,6 +418,7 @@ public class ImageUtil {
      * @param pixelW      target pixel of width
      * @param pixelH      target pixel of height
      * @param needsDelete Whether delete original file after compress
+     * @throws FileNotFoundException
      */
     public static void ratioAndGenThumb(String imgPath, String outPath, float pixelW, float pixelH, boolean needsDelete) throws FileNotFoundException {
         Bitmap bitmap = ratio(imgPath, pixelW, pixelH);
@@ -904,7 +909,6 @@ public class ImageUtil {
         canvas.drawBitmap(watermark, paddingLeft, paddingTop, null);
         // 保存
 //        canvas.save(Canvas.ALL_SAVE_FLAG);
-        canvas.save();
         // 存储
         canvas.restore();
         return newb;
@@ -1157,18 +1161,24 @@ public class ImageUtil {
 
     /**
      * 拼凑oss文件地址
-     *
-     * @param fileName
-     * @return
      */
-//    public static String spellOssUrl(String fileName) {
-//        return "https://" +
-//                Constants.OSS.BUCKET_NAME +
-//                "." +
-//                Constants.OSS.ENDPOINT +
-//                "/" +
-//                fileName;
+//    public static String spellOssUrl(String fileName, String type) {
+//        if (type.equals("jpg")) {
+//            return "https://" +
+//                    Constants.OSS.BUCKET_NAME +
+//                    "." +
+//                    Constants.OSS.ENDPOINT +
+//                    "/" +
+//                    "zhxy_picture/"+fileName;
+//        } else {
 //
+//            return "https://" +
+//                    Constants.OSS.BUCKET_NAME +
+//                    "." +
+//                    Constants.OSS.ENDPOINT +
+//                    "/" +
+//                    "zhxy_video/"+fileName;
+//        }
 //    }
 
 }

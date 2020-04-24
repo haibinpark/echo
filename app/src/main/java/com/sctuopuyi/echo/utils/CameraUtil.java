@@ -35,8 +35,7 @@ public class CameraUtil {
             // setParameters 是针对魅族MX5 做的。MX5 通过Camera.open() 拿到的Camera
             // 对象不为null
             Camera.Parameters mParameters = mCamera.getParameters();
-            if (mParameters != null)
-                mCamera.setParameters(mParameters);
+            mCamera.setParameters(mParameters);
         } catch (Exception e) {
             canUse = false;
         }
@@ -138,7 +137,7 @@ public class CameraUtil {
                     contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
                 }
                 final String selection = "_id=?";
-                final String[] selectionArgs = new String[]{split[1]};
+                final String[] selectionArgs = new String[] { split[1] };
                 return getDataColumn(context, contentUri, selection,
                         selectionArgs);
             }
@@ -215,7 +214,6 @@ public class CameraUtil {
 
     /**
      * 图片翻转
-     *
      * @param bmp
      * @return
      */

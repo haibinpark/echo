@@ -1,6 +1,8 @@
 package com.sctuopuyi.echo.utils;
 
+import android.content.Context;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,6 +21,7 @@ public class DateUtil {
     public static final String TIME_REG_YMD3 = "yyyy.MM.dd";
     public static final String TIME_REG_YMD4 = "yyyy-MM-dd";
     public static final String TIME_REG_YM = "yyyy年MM月";
+    public static final String TIME_REG_YM1 = "yyyy-MM";
     public static final String TIME_REG_MD = "MM月dd日";
     public static final String TIME_REG_MDHM = "MM-dd HH:mm";
     public static final String TIME_REG_YMDHM = "yyyy年MM月dd HH:mm";
@@ -27,6 +30,7 @@ public class DateUtil {
     public static final String TIME_REG_YMDHMS2 = "yyyy.MM.dd\r\nHH:mm:ss";
     public static final String TIME_REG_HMS = "HH:mm:ss";
     public static final String TIME_REG_HM = "HH:mm";
+
 
     //region base other to strReg
 
@@ -169,10 +173,17 @@ public class DateUtil {
     }
 
     /**
-     * 当前时间  转为  yyyy-MM-dd
+     * 当前时间  转为  yyyy.MM.dd
      */
     public static String getCurrent_yMd3() {
         return dateToStrReg(new Date(), TIME_REG_YMD3);
+    }
+
+    /**
+     * 当前时间  转为  yyyy-MM-dd
+     */
+    public static String getCurrent_yMd4() {
+        return dateToStrReg(new Date(), TIME_REG_YMD4);
     }
 
     /**
@@ -182,18 +193,19 @@ public class DateUtil {
         return dateToStrReg(new Date(), TIME_REG_YM);
     }
 
+
     /**
-     * 当前时间  转为  MM-dd HH:mm
+     * 当前时间  转为  yyyy-MM
      */
-    public static String getCurrent_MdHm() {
-        return dateToStrReg(new Date(), TIME_REG_MDHM);
+    public static String getCurrent_yM1() {
+        return dateToStrReg(new Date(), TIME_REG_YM1);
     }
 
     /**
      * 当前时间  转为  MM-dd HH:mm
      */
-    public static String getCurrent_Hm() {
-        return dateToStrReg(new Date(), TIME_REG_HM);
+    public static String getCurrent_MdHm() {
+        return dateToStrReg(new Date(), TIME_REG_MDHM);
     }
 
     /**
@@ -235,10 +247,31 @@ public class DateUtil {
      * 当前时间 转为  星期几
      */
     public static String getCurrentWeek() {
-        Calendar calendar = Calendar.getInstance();
-        int week = calendar.get(Calendar.DAY_OF_WEEK);
-        return DateUtil.intToWeek(week);
+//        Calendar calendar = Calendar.getInstance();
+//        int week = calendar.get(Calendar.WEEK_OF_MONTH);
+        String timeNow = getCurrentStampStr();
+        return DateUtil.stampStrToWeek(timeNow);
     }
+
+
+    /**
+     * 当前时间  转为  MM-dd HH:mm
+     */
+    public static String getCurrent_Hm() {
+        return dateToStrReg(new Date(), TIME_REG_HM);
+    }
+
+
+    /**
+     * 时间戳转时与分
+     *
+     * @param timestamp
+     * @return
+     */
+    public static String stampStrToHm(String timestamp) {
+        return stampStrToStrReg(timestamp, TIME_REG_HM);
+    }
+
 
     //endregion
 
@@ -277,6 +310,13 @@ public class DateUtil {
      */
     public static String stampStrToYMDHM(String time) {
         return stampStrToStrReg(time, TIME_REG_YMDHM);
+    }
+
+    /**
+     * 时间戳Str  转为  yyyy-MM-dd
+     */
+    public static String stampStrToYMD(String time) {
+        return stampStrToStrReg(time, TIME_REG_YMD4);
     }
 
     /**
@@ -449,6 +489,20 @@ public class DateUtil {
         return date;
     }
 
+    public static int getYear() {
+        return Calendar.getInstance().get(Calendar.YEAR);
+    }
+
+
+    public static int getMonth() {
+        return Calendar.getInstance().get(Calendar.MONTH) + 1;
+    }
+
+
+    public static int getDay() {
+        return Calendar.DAY_OF_MONTH;
+    }
+
     /**
      * 把年月拼成时间戳
      */
@@ -557,58 +611,6 @@ public class DateUtil {
     }
 
     /**
-     * 计算距离（x天x时x分x秒前）
-     *
-     * @param endTimestampStr
-     * @return
-     */
-    public static String spaceFromNowToSpecTime3(long endTimestampStr) {
-        StringBuffer spaceTime = new StringBuffer();
-        Long currentTimestamp = currentTimeMillis();
-        Long startTimestamp = endTimestampStr;
-        Long distance = startTimestamp - currentTimestamp;
-        if (distance == 0L)
-            return "";
-        Long distanceDaysL = distance / (60 * 60 * 24 * 1000);
-        int distanceDays = distanceDaysL.intValue();
-        if (distanceDays > 0) {
-            spaceTime.append(distanceDays);
-            spaceTime.append("天");
-        }
-        Long distance1 = distance - distanceDaysL * (60 * 60 * 24 * 1000);
-        if (distance1 == 0L) {
-            return spaceTime.toString();
-        }
-        Long distanceHoursL = distance1 / (60 * 60 * 1000);
-        int distanceHours = distanceHoursL.intValue();
-        if (distanceHours > 0) {
-            spaceTime.append(distanceHours);
-            spaceTime.append("时");
-        }
-        Long distance2 = distance1 - distanceHoursL * (60 * 60 * 1000);
-        if (distance2 == 0L) {
-            return spaceTime.toString();
-        }
-        Long distancesML = distance2 / (60 * 1000);
-        int distancesM = distancesML.intValue();
-        if (distancesM > 0) {
-            spaceTime.append(distancesM);
-            spaceTime.append("分");
-        }
-        Long distance3 = distance2 - distancesML * (60 * 1000);
-        if (distance3 == 0L) {
-            return spaceTime.toString();
-        }
-        Long distancesSL = distance3 / (1000);
-        int distancesS = distancesSL.intValue();
-        if (distancesS > 0) {
-            spaceTime.append(distancesS);
-            spaceTime.append("秒");
-        }
-        return spaceTime.toString();
-    }
-
-    /**
      * 计算距离（x天x时）
      *
      * @param startTimestampStr
@@ -685,6 +687,11 @@ public class DateUtil {
         if (d < 10) mao1 = ":0";
         if (s < 10) mao2 = ":0";
         return h + mao1 + d + mao2 + s;
+    }
+
+
+    public static Boolean is24Hour(Context context) {
+        return DateFormat.is24HourFormat(context);
     }
 
     //endregion

@@ -9,8 +9,8 @@ import com.sctuopuyi.echo.bus.RxEvent.Companion.EVENT_TYPE_SETTING_PASSWORD_OK
 import com.sctuopuyi.echo.data.DatamanagerHelper
 import com.sctuopuyi.echo.ui.base.domain.ObserableViewModel
 import com.sctuopuyi.echo.ui.main.MainActivity
-import com.sctuopuyi.echo.utils.DateUtil
 import com.sctuopuyi.echo.utils.MyTaskUtil
+import com.sctuopuyi.echo.utils.DateUtil
 import io.reactivex.disposables.Disposable
 
 class MainViewModel(

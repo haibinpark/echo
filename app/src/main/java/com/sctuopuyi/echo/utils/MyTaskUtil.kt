@@ -3,9 +3,8 @@ package com.sctuopuyi.echo.utils
 import com.sctuopuyi.echo.app.Constants
 import java.util.*
 
-
 class MyTaskUtil {
-    private var callback:MyMaskUtilInterface? = null
+    private var callback: MyMaskUtilInterface? = null
 
     constructor(callback: MyMaskUtilInterface?) {
         this.callback = callback
@@ -56,4 +55,5 @@ class MyTaskUtil {
     interface MyMaskUtilInterface {
         fun doWork()
     }
+
 }

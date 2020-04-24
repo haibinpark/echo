@@ -8,9 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-
-import com.lzy.imagepicker.view.SystemBarTintManager;
 import com.sctuopuyi.echo.R;
+import com.lzy.imagepicker.view.SystemBarTintManager;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -58,6 +57,19 @@ public class StatusBarUtil {
             SystemBarTintManager tintManager = new SystemBarTintManager(activity);
             tintManager.setStatusBarTintEnabled(true);
             tintManager.setStatusBarTintResource(colorId);
+        }
+    }
+
+    /**
+     * 透明且，沉浸式状态栏（普通使用需要设置FitsSystemWindows为true）
+     */
+    public static void fullStatusBarTrans(Activity activity) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = activity.getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
         }
     }
 
@@ -219,7 +231,7 @@ public class StatusBarUtil {
             } else if (FlymeSetStatusBarLightMode(activity.getWindow(), true)) {
                 result = 2;
             } else {
-                setStatusBarColor(activity,  R.color.statusBarHalfTrans);
+                setStatusBarColor(activity, R.color.statusBarHalfTrans);
             }
         }
         return result;

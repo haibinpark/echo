@@ -8,14 +8,9 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
 import io.reactivex.Observable;
+
+import java.io.*;
 
 
 /**
@@ -57,10 +52,7 @@ public class FileUtil {
 
 
     public static File getSaveFile(Context context, String fileName) {
-        File file = null;
-        File parentFile = context.getFilesDir();
-        if (parentFile != null)
-            file = new File(parentFile, fileName);
+        File file = new File(context.getFilesDir(), fileName);
         return file;
     }
 
@@ -146,14 +138,6 @@ public class FileUtil {
         ClipboardManager cm = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
         // 创建普通字符型ClipData
         ClipData mClipData = ClipData.newPlainText("平台数字货币地址", coinAddress);
-        // 将ClipData内容放到系统剪贴板里。
-        cm.setPrimaryClip(mClipData);
-    }
-
-    public static void copyTextOnBoard(String copyText, Context mContext) {
-        ClipboardManager cm = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
-        // 创建普通字符型ClipData
-        ClipData mClipData = ClipData.newPlainText("拷贝文本", copyText);
         // 将ClipData内容放到系统剪贴板里。
         cm.setPrimaryClip(mClipData);
     }

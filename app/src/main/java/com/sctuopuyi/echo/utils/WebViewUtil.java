@@ -4,9 +4,8 @@ import android.os.Build;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
-import com.mylhyl.crlayout.SwipeRefreshWebView;
 import com.sctuopuyi.echo.R;
+import com.mylhyl.crlayout.SwipeRefreshWebView;
 
 /**
  * Created by ChenGY on 2018-04-23.

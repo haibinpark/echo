@@ -3,10 +3,6 @@ package com.sctuopuyi.echo.utils;
 import android.graphics.Color;
 import android.text.TextUtils;
 
-
-import com.sctuopuyi.echo.BuildConfig;
-import com.sctuopuyi.echo.app.Constants;
-
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.List;
@@ -490,9 +486,9 @@ public class StrNumUtil {
 
     //region other more
 
-    public static boolean isNeedTestData() {
-        return BuildConfig.DEBUG && Constants.isNeedTestData;
-    }
+//    public static boolean isNeedTestData() {
+//        return BuildConfig.DEBUG && Constants.isNeedTestData;
+//    }
 
     public static boolean isNeedTestDataTemp() {
         return false;

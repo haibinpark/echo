@@ -1,14 +1,7 @@
 package com.sctuopuyi.echo.utils;
 
 
-import com.orhanobut.logger.AndroidLogAdapter;
-import com.orhanobut.logger.CsvFormatStrategy;
-import com.orhanobut.logger.DiskLogAdapter;
-import com.orhanobut.logger.FormatStrategy;
-import com.orhanobut.logger.Logger;
-import com.orhanobut.logger.PrettyFormatStrategy;
-import com.sctuopuyi.echo.BuildConfig;
-
+import com.orhanobut.logger.*;
 
 /**
  * 日志打印扩展类
@@ -19,6 +12,7 @@ public class LogUtil {
     private static final String TAG = BuildConfig.APPLICATION_ID;
 
     static {
+        isDebug = true;
         if (isDebug) {
             Logger.addLogAdapter(new AndroidLogAdapter(PrettyFormatStrategy.newBuilder().tag(TAG).build()));
         } else {

@@ -13,8 +13,6 @@ import java.util.regex.Pattern;
 
 public class PhoneUtils {
 
-    public static final String ISNUMBER_11 = "^\\d{11,}$";
-
 
     /**
      * 判断是否平板设备
@@ -85,22 +83,4 @@ public class PhoneUtils {
         Matcher matcher = pattern.matcher(str);
         return matcher.matches();
     }
-
-    /**
-     * 正则表达式
-     *
-     * @param patternStr
-     * @param input
-     * @return
-     */
-    public static boolean isMatchered(String patternStr, CharSequence input) {
-        Pattern pattern = Pattern.compile(patternStr);
-        Matcher matcher = pattern.matcher(input);
-        if (matcher.find()) {
-            return true;
-        }
-        return false;
-    }
-
-
 }
