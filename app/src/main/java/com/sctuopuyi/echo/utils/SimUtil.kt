@@ -27,7 +27,7 @@ object SimUtil {
 
 
     /**
-     * 判断运营商
+     * 判断运营商类型
      */
     fun simOperator(context: Context): SimOperator {
         val service = context.getSystemService(Activity.TELEPHONY_SERVICE)
